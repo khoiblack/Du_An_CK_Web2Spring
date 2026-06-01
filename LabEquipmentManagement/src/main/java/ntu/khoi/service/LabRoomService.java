@@ -19,4 +19,11 @@ public class LabRoomService {
     public LabRoom getById(Integer id) {
         return labRoomRepository.findById(id).orElse(null);
     }
+    public void save(LabRoom labRoom) {
+        labRoomRepository.save(labRoom);
+    }
+
+    public void delete(Integer id) {
+        labRoomRepository.deleteById(id);
+    }
 }
