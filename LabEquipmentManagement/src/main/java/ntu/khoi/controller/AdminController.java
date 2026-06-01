@@ -2,6 +2,7 @@ package ntu.khoi.controller;
 
 import ntu.khoi.entity.Equipment;
 import ntu.khoi.service.EquipmentService;
+import ntu.khoi.service.BookingRequestService; // Thêm import
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,17 +15,19 @@ public class AdminController {
     @Autowired
     private EquipmentService equipmentService;
 
-    // 1. READ: Hiển thị trang quản lý thiết bị (Đã đổi đường dẫn return)
+    @Autowired
+    private BookingRequestService bookingRequestService; 
+
+    
     @GetMapping("/dashboard")
     public String dashboard(Model model) {
         model.addAttribute("listEquipment", equipmentService.getAll());
+        model.addAttribute("listRequests", bookingRequestService.getAll()); 
         model.addAttribute("equipment", new Equipment()); 
-        
-        // ĐỔI TỪ "admin/dashboard" THÀNH "dashboard_admin"
         return "dashboard_admin"; 
     }
 
-    // 2. CREATE & UPDATE: Xử lý lưu form Thêm/Sửa
+    
     @PostMapping("/equipment/save")
     public String saveEquipment(@ModelAttribute("equipment") Equipment equipment) {
         if (equipment.getId() == null) {
@@ -34,10 +37,24 @@ public class AdminController {
         return "redirect:/admin/dashboard"; 
     }
 
-    // 3. DELETE: Xử lý xóa thiết bị
+    
     @GetMapping("/equipment/delete/{id}")
     public String deleteEquipment(@PathVariable Integer id) {
         equipmentService.delete(id);
+        return "redirect:/admin/dashboard";
+    }
+
+    
+    @GetMapping("/request/approve/{id}")
+    public String approveRequest(@PathVariable Integer id) {
+        bookingRequestService.updateStatus(id, "APPROVED");
+        return "redirect:/admin/dashboard";
+    }
+
+    
+    @GetMapping("/request/reject/{id}")
+    public String rejectRequest(@PathVariable Integer id) {
+        bookingRequestService.updateStatus(id, "REJECTED");
         return "redirect:/admin/dashboard";
     }
 }
