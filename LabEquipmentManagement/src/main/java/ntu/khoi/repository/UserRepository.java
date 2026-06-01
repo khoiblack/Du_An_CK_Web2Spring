@@ -1,8 +1,17 @@
 package ntu.khoi.repository;
-import ntu.khoi.entity.User;
-import org.springframework.data.jpa.repository.JpaRepository;
-import java.util.Optional;
 
+import ntu.khoi.entity.User;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
-    Optional<User> findByUsername(String username); 
+    
+   
+    User findByUsername(String username);
+    List<User> findByRole(String role);
+    
 }
