@@ -46,16 +46,24 @@ public class StudentController {
                               HttpSession session) {
         User currentUser = (User) session.getAttribute("currentUser");
         
-       
         bookingRequest.setUser(currentUser);
-        bookingRequest.setStatus("PENDING"); 
-        
+        bookingRequest.setStatus("PENDING");
         
         if (roomId != null && roomId > 0) {
             bookingRequest.setLabRoom(labRoomService.getById(roomId));
         }
+        
+        
         if (equipmentId != null && equipmentId > 0) {
-            bookingRequest.setEquipment(equipmentService.getById(equipmentId));
+            ntu.khoi.entity.Equipment eq = equipmentService.getById(equipmentId);
+            
+            
+            if (bookingRequest.getQuantity() > eq.getAvailableQuantity()) {
+                
+                return "redirect:/student/home?error=invalid_quantity";
+            }
+            
+            bookingRequest.setEquipment(eq);
         }
         
         bookingRequestService.save(bookingRequest);
