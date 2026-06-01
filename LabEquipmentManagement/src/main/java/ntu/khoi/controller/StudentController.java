@@ -49,24 +49,30 @@ public class StudentController {
         bookingRequest.setUser(currentUser);
         bookingRequest.setStatus("PENDING");
         
+     
+        
+        
         if (roomId != null && roomId > 0) {
+            boolean isAvailable = bookingRequestService.isRoomAvailable(roomId, bookingRequest.getStartTime(), bookingRequest.getEndTime());
+            
+           
+            if (!isAvailable) {
+                return "redirect:/student/home?error=room_conflict";
+            }
+            
             bookingRequest.setLabRoom(labRoomService.getById(roomId));
         }
         
         
         if (equipmentId != null && equipmentId > 0) {
             ntu.khoi.entity.Equipment eq = equipmentService.getById(equipmentId);
-            
-            
             if (bookingRequest.getQuantity() > eq.getAvailableQuantity()) {
-                
                 return "redirect:/student/home?error=invalid_quantity";
             }
-            
             bookingRequest.setEquipment(eq);
         }
         
         bookingRequestService.save(bookingRequest);
-        return "redirect:/student/home";
+        return "redirect:/student/home?success=true";
     }
 }
