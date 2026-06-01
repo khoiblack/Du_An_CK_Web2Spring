@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+    <th:block th:fragment="tab_content">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3 class="text-dark">Quản Lý Trang Thiết Bị Khoa</h3>
+            <button class="btn btn-primary shadow-sm" data-bs-toggle="modal" data-bs-target="#equipmentModal" onclick="prepareAddForm()">
+                <i class="fa-solid fa-plus me-1"></i> Thêm Thiết Bị Mới
+            </button>
+        </div>
+
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-0">
+                <table class="table table-hover mb-0 align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th class="ps-4">ID</th>
+                            <th>Tên Thiết Bị</th>
+                            <th>Danh Mục</th>
+                            <th>Tổng Số Lượng</th>
+                            <th>Sẵn Có</th>
+                            <th class="text-center pe-4">Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="item : ${listEquipment}">
+                            <td th:text="${item.id}" class="ps-4"></td>
+                            <td th:text="${item.name}" class="fw-bold text-secondary"></td>
+                            <td th:text="${item.category}"></td>
+                            <td th:text="${item.totalQuantity}"></td>
+                            <td th:text="${item.availableQuantity}" class="text-success fw-bold"></td>
+                            <td class="text-center pe-4">
+                                <button class="btn btn-warning btn-sm me-2" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#equipmentModal"
+                                        th:data-id="${item.id}" 
+                                        th:data-name="${item.name}"
+                                        th:data-category="${item.category}" 
+                                        th:data-total="${item.totalQuantity}"
+                                        th:data-available="${item.availableQuantity}"
+                                        onclick="prepareEditForm(this)">
+                                    <i class="fa-solid fa-pen-to-square"></i> Sửa
+                                </button>
+                                <a th:href="@{/admin/equipment/delete/{id}(id=${item.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Xóa thiết bị này?')">
+                                    <i class="fa-solid fa-trash"></i> Xóa
+                                </a>
+                            </td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(listEquipment)}">
+                            <td colspan="6" class="text-center text-muted py-4">Chưa có thiết bị nào trong hệ thống.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </th:block>
+
+    <th:block th:fragment="modal_and_js">
+        <div class="modal fade" id="equipmentModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form th:action="@{/admin/equipment/save}" method="POST" th:object="${equipment}">
+                        <div class="modal-header bg-primary text-white">
+                            <h5 class="modal-title" id="modalEqTitle">Thêm Thiết Bị</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" id="formId" name="id">
+                            <input type="hidden" id="formAvailable" name="availableQuantity">
+                            
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Tên thiết bị</label>
+                                <input type="text" id="formName" name="name" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Danh mục</label>
+                                <select id="formCategory" name="category" class="form-select">
+                                    <option value="Network">Thiết bị Mạng (Router/Switch)</option>
+                                    <option value="Đồ dùng">Đồ dùng hỗ trợ (Máy chiếu/...)</option>
+                                    <option value="Linh kiện">Linh kiện rời (Kính VR/Phụ kiện)</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Tổng số lượng</label>
+                                <input type="number" id="formTotal" name="totalQuantity" class="form-control" min="1" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                            <button type="submit" class="btn btn-primary" id="btnEqSubmit">Lưu Lại</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function prepareAddForm() {
+                document.getElementById('modalEqTitle').innerText = "Thêm Thiết Bị Mới";
+                document.getElementById('formId').value = "";
+                document.getElementById('formAvailable').value = "";
+                document.getElementById('formName').value = "";
+                document.getElementById('formCategory').value = "Network";
+                document.getElementById('formTotal').value = "";
+                document.getElementById('btnEqSubmit').className = "btn btn-primary";
+                document.getElementById('btnEqSubmit').innerText = "Thêm Mới";
+            }
+
+            function prepareEditForm(button) {
+                document.getElementById('modalEqTitle').innerText = "Cập Nhật Thiết Bị";
+                document.getElementById('formId').value = button.getAttribute('data-id');
+                document.getElementById('formAvailable').value = button.getAttribute('data-available');
+                document.getElementById('formName').value = button.getAttribute('data-name');
+                document.getElementById('formCategory').value = button.getAttribute('data-category');
+                document.getElementById('formTotal').value = button.getAttribute('data-total');
+                document.getElementById('btnEqSubmit').className = "btn btn-warning";
+                document.getElementById('btnEqSubmit').innerText = "Cập Nhật";
+            }
+        </script>
+    </th:block>
+
+</body>
+</html>

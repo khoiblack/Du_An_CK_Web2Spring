@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+    <th:block th:fragment="tab_content">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3 class="text-dark">Quản Lý Phòng Máy</h3>
+            <button class="btn btn-success shadow-sm" data-bs-toggle="modal" data-bs-target="#roomModal" onclick="prepareAddRoomForm()">
+                <i class="fa-solid fa-plus me-1"></i> Thêm Phòng Mới
+            </button>
+        </div>
+
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-0">
+                <table class="table table-hover mb-0 align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th class="ps-4">ID</th>
+                            <th>Tên Phòng</th>
+                            <th>Sức Chứa</th>
+                            <th>Trạng Thái</th>
+                            <th class="text-center pe-4">Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="r : ${listRooms}">
+                            <td th:text="${r.id}" class="ps-4"></td>
+                            <td th:text="${r.roomName}" class="fw-bold text-primary"></td>
+                            <td th:text="${r.capacity} + ' người'"></td>
+                            <td>
+                                <span th:if="${r.status == 'AVAILABLE'}" class="badge bg-success">Sẵn sàng</span>
+                                <span th:if="${r.status == 'MAINTENANCE'}" class="badge bg-warning text-dark">Bảo trì</span>
+                            </td>
+                            <td class="text-center pe-4">
+                                <button class="btn btn-warning btn-sm me-2" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#roomModal"
+                                        th:data-id="${r.id}" 
+                                        th:data-name="${r.roomName}"
+                                        th:data-capacity="${r.capacity}" 
+                                        th:data-status="${r.status}"
+                                        onclick="prepareEditRoomForm(this)">
+                                    <i class="fa-solid fa-pen-to-square"></i> Sửa
+                                </button>
+                                <a th:href="@{/admin/room/delete/{id}(id=${r.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa phòng này?')">
+                                    <i class="fa-solid fa-trash"></i> Xóa
+                                </a>
+                            </td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(listRooms)}">
+                            <td colspan="5" class="text-center text-muted py-4">Chưa có phòng máy nào trong hệ thống.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </th:block>
+
+    <th:block th:fragment="modal_and_js">
+        <div class="modal fade" id="roomModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form th:action="@{/admin/room/save}" method="POST" th:object="${labRoom}">
+                        <div class="modal-header bg-success text-white">
+                            <h5 class="modal-title" id="modalRoomTitle">Thêm Phòng Máy Mới</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" id="roomFormId" name="id">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Tên phòng máy (VD: Lab 101)</label>
+                                <input type="text" id="roomFormName" name="roomName" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Sức chứa (Số người)</label>
+                                <input type="number" id="roomFormCapacity" name="capacity" class="form-control" min="1" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Trạng thái phòng</label>
+                                <select id="roomFormStatus" name="status" class="form-select">
+                                    <option value="AVAILABLE">Sẵn sàng sử dụng</option>
+                                    <option value="MAINTENANCE">Đang bảo trì / Hỏng</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                            <button type="submit" class="btn btn-success" id="btnRoomSubmit">Lưu Thông Tin</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function prepareAddRoomForm() {
+                document.getElementById('modalRoomTitle').innerText = "Thêm Phòng Máy Mới";
+                document.getElementById('roomFormId').value = "";
+                document.getElementById('roomFormName').value = "";
+                document.getElementById('roomFormCapacity').value = "";
+                document.getElementById('roomFormStatus').value = "AVAILABLE";
+                document.getElementById('btnRoomSubmit').className = "btn btn-success";
+                document.getElementById('btnRoomSubmit').innerText = "Thêm Phòng";
+            }
+
+            function prepareEditRoomForm(button) {
+                document.getElementById('modalRoomTitle').innerText = "Cập Nhật Phòng Máy";
+                document.getElementById('roomFormId').value = button.getAttribute('data-id');
+                document.getElementById('roomFormName').value = button.getAttribute('data-name');
+                document.getElementById('roomFormCapacity').value = button.getAttribute('data-capacity');
+                document.getElementById('roomFormStatus').value = button.getAttribute('data-status');
+                document.getElementById('btnRoomSubmit').className = "btn btn-warning";
+                document.getElementById('btnRoomSubmit').innerText = "Cập Nhật";
+            }
+        </script>
+    </th:block>
+
+</body>
+</html>

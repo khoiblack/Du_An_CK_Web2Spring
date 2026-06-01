@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+    <th:block th:fragment="tab_content">
+        <div class="mb-4">
+            <h3 class="text-dark">Duyệt Đăng Ký Mượn Phòng / Thiết Bị</h3>
+        </div>
+
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-0">
+                <table class="table table-hover mb-0 align-middle">
+                    <thead class="table-secondary">
+                        <tr>
+                            <th class="ps-4">Mã Đơn</th>
+                            <th>Sinh Viên Đăng Ký</th>
+                            <th>Tài Nguyên Mượn</th>
+                            <th>Số Lượng</th>
+                            <th>Thời Gian Mượn</th>
+                            <th>Mục Đích</th>
+                            <th>Trạng Thái</th>
+                            <th class="text-center pe-4">Xử Lý Duyệt</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="req : ${listRequests}">
+                            <td th:text="${req.id}" class="ps-4"></td>
+                            <td th:text="${req.user.fullName}" class="fw-bold text-primary"></td>
+                            <td>
+                                <span th:text="${req.labRoom != null ? '🏫 ' + req.labRoom.roomName : ''}"></span><br>
+                                <span th:text="${req.equipment != null ? '🔌 ' + req.equipment.name : ''}"></span>
+                            </td>
+                            <td th:text="${req.quantity}"></td>
+                            <td>
+                                <small th:text="'Từ: ' + ${#temporals.format(req.startTime, 'dd/MM/yyyy HH:mm')}"></small><br>
+                                <small th:text="'Đến: ' + ${#temporals.format(req.endTime, 'dd/MM/yyyy HH:mm')}"></small>
+                            </td>
+                            <td th:text="${req.purpose}"></td>
+                            <td>
+                                <span th:if="${req.status == 'PENDING'}" class="badge bg-warning text-dark">Chờ duyệt</span>
+                                <span th:if="${req.status == 'APPROVED'}" class="badge bg-success">Đã duyệt</span>
+                                <span th:if="${req.status == 'REJECTED'}" class="badge bg-danger">Từ chối</span>
+                            </td>
+                            <td class="text-center pe-4">
+                                <div th:if="${req.status == 'PENDING'}">
+                                    <a th:href="@{/admin/request/approve/{id}(id=${req.id})}" class="btn btn-outline-success btn-sm me-1" title="Duyệt đơn này">
+                                        <i class="fa-solid fa-check"></i> Duyệt
+                                    </a>
+                                    <a th:href="@{/admin/request/reject/{id}(id=${req.id})}" class="btn btn-outline-danger btn-sm" onclick="return confirm('Bạn muốn từ chối đơn đăng ký này?')" title="Từ chối đơn này">
+                                        <i class="fa-solid fa-xmark"></i> Từ chối
+                                    </a>
+                                </div>
+                                <span th:unless="${req.status == 'PENDING'}" class="text-muted fs-7"><i class="fa-solid fa-check-double"></i> Đã xử lý</span>
+                            </td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(listRequests)}">
+                            <td colspan="8" class="text-center text-muted py-4">Hiện chưa có yêu cầu đăng ký nào từ sinh viên.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </th:block>
+
+</body>
+</html>
