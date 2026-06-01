@@ -4,7 +4,6 @@ import ntu.khoi.entity.User;
 import ntu.khoi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -12,12 +11,16 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    
     public User login(String username, String password) {
-        Optional<User> userOpt = userRepository.findByUsername(username);
-        if (userOpt.isPresent() && userOpt.get().getPassword().equals(password)) {
-            return userOpt.get();
+        
+        User user = userRepository.findByUsername(username);
+        
+        
+        if (user != null && user.getPassword().equals(password)) {
+            return user;
         }
+        
+        
         return null;
     }
 }
