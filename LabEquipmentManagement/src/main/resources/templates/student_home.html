@@ -18,6 +18,20 @@
     </nav>
 
     <div class="container mt-4">
+    	<div th:if="${param.error != null and param.error[0] == 'room_conflict'}" class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
+            <strong>❌ Trùng lịch!</strong> Phòng máy bạn chọn đã có người đăng ký hoặc đang được sử dụng trong khung giờ này. Vui lòng chọn khung giờ khác!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <div th:if="${param.error != null and param.error[0] == 'invalid_quantity'}" class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
+            <strong>❌ Lỗi số lượng!</strong> Thiết bị bạn chọn không đủ số lượng trong kho.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        
+        <div th:if="${param.success != null}" class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+            <strong>✅ Thành công!</strong> Đơn đăng ký của bạn đã được gửi và đang chờ phê duyệt.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
         <div class="text-end mb-4">
             <button class="btn btn-success btn-lg shadow-sm" data-bs-toggle="modal" data-bs-target="#bookingModal">
                 📝 Tạo Phiếu Đăng Ký Mượn
@@ -144,14 +158,14 @@
         
         const maxAvailable = parseInt(selectedOption.getAttribute('data-available')) || 0;
 
-        // Bắt lỗi số lượng
+        
         if (inputQuantity > maxAvailable) {
             errorAlert.innerText = "Số lượng thiết bị mượn (" + inputQuantity + ") vượt quá số lượng sẵn có trong kho (" + maxAvailable + ")!";
             errorAlert.classList.remove('d-none');
             return false;
         }
 
-        // Bắt lỗi ngày tháng
+        
         if (startVal && endVal) {
             const startDate = new Date(startVal);
             const endDate = new Date(endVal);
