@@ -6,6 +6,8 @@ import ntu.khoi.repository.BookingRequestRepository;
 import ntu.khoi.repository.EquipmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -46,5 +48,10 @@ public class BookingRequestService {
             
             bookingRequestRepository.save(request);
         }
+    }
+
+    public boolean isRoomAvailable(Integer roomId, LocalDateTime startTime, LocalDateTime endTime) {
+        long conflictCount = bookingRequestRepository.countConflictingBookings(roomId, startTime, endTime);
+        return conflictCount == 0; 
     }
 }
