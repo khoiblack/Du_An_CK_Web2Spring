@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+    <th:block th:fragment="tab_content">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3 class="text-dark">Quản Lý Tài Khoản Sinh Viên</h3>
+        </div>
+
+        <div th:if="${param.resetSuccess != null}" class="alert alert-success alert-dismissible fade show">
+            <i class="fa-solid fa-check"></i> Đã đặt lại mật khẩu thành công thành <b>123456</b>!
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        <div th:if="${param.deleteError != null}" class="alert alert-danger alert-dismissible fade show">
+            <i class="fa-solid fa-triangle-exclamation"></i> Không thể xóa sinh viên này do họ đã có lịch sử mượn trả trong hệ thống!
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-0">
+                <table class="table table-hover mb-0 align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th class="ps-4">MSSV</th>
+                            <th>Họ và Tên</th>
+                            <th>Lớp</th>
+                            <th>Tên Đăng Nhập</th>
+                            <th class="text-center pe-4">Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="sv : ${listStudents}">
+                            <td th:text="${sv.studentId}" class="ps-4 fw-bold"></td>
+                            <td th:text="${sv.fullName}" class="text-primary fw-bold"></td>
+                            <td th:text="${sv.studentClass}"></td>
+                            <td th:text="${sv.username}"></td>
+                            <td class="text-center pe-4">
+                                <button class="btn btn-warning btn-sm me-1" 
+                                        data-bs-toggle="modal" data-bs-target="#userModal"
+                                        th:data-id="${sv.id}" th:data-name="${sv.fullName}"
+                                        th:data-studentid="${sv.studentId}" th:data-class="${sv.studentClass}"
+                                        onclick="prepareEditUserForm(this)" title="Sửa thông tin">
+                                    <i class="fa-solid fa-pen"></i>
+                                </button>
+                                <a th:href="@{/admin/user/reset-password/{id}(id=${sv.id})}" class="btn btn-info btn-sm me-1 text-white" 
+                                   onclick="return confirm('Đặt lại mật khẩu của sinh viên này về mặc định (123456)?')" title="Reset mật khẩu">
+                                    <i class="fa-solid fa-key"></i>
+                                </a>
+                                <a th:href="@{/admin/user/delete/{id}(id=${sv.id})}" class="btn btn-danger btn-sm" 
+                                   onclick="return confirm('Bạn có chắc chắn muốn xóa tài khoản này không?')" title="Xóa tài khoản">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(listStudents)}">
+                            <td colspan="5" class="text-center text-muted py-4">Chưa có sinh viên nào đăng ký.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </th:block>
+
+    <th:block th:fragment="modal_and_js">
+        <div class="modal fade" id="userModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form th:action="@{/admin/user/update}" method="POST" th:object="${editUser}">
+                        <div class="modal-header bg-warning text-dark">
+                            <h5 class="modal-title fw-bold"><i class="fa-solid fa-user-pen"></i> Sửa Thông Tin Sinh Viên</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" id="userFormId" name="id">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Mã số sinh viên (MSSV)</label>
+                                <input type="text" id="userFormStudentId" name="studentId" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Họ và Tên</label>
+                                <input type="text" id="userFormFullName" name="fullName" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Lớp sinh hoạt</label>
+                                <input type="text" id="userFormClass" name="studentClass" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                            <button type="submit" class="btn btn-warning fw-bold">Cập Nhật</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function prepareEditUserForm(button) {
+                document.getElementById('userFormId').value = button.getAttribute('data-id');
+                document.getElementById('userFormStudentId').value = button.getAttribute('data-studentid');
+                document.getElementById('userFormFullName').value = button.getAttribute('data-name');
+                document.getElementById('userFormClass').value = button.getAttribute('data-class');
+            }
+        </script>
+    </th:block>
+
+</body>
+</html>
