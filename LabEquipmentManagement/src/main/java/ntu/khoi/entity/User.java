@@ -20,6 +20,11 @@ public class User {
 
     @Column(nullable = false, length = 20)
     private String role;
+    @Column(name = "student_id", length = 20)
+    private String studentId; 
+
+    @Column(name = "student_class", length = 50)
+    private String studentClass;
 
 	public Integer getId() {
 		return id;
@@ -59,6 +64,22 @@ public class User {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public String getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(String studentId) {
+		this.studentId = studentId;
+	}
+
+	public String getStudentClass() {
+		return studentClass;
+	}
+
+	public void setStudentClass(String studentClass) {
+		this.studentClass = studentClass;
 	} 
 
     
