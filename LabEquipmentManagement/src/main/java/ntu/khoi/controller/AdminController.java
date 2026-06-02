@@ -118,4 +118,12 @@ public class AdminController {
         }
         return "redirect:/admin/dashboard";
     }
+    @GetMapping("/user/{id}/history")
+    public String getUserHistory(@PathVariable Integer id, Model model) {
+        
+        model.addAttribute("studentHistory", bookingRequestService.getByUserId(id));
+        
+        
+        return "admin_user_history :: history_content";
+    }
 }
