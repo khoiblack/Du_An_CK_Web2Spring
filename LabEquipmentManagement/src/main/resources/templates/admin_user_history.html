@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+    <th:block th:fragment="history_content">
+        <table class="table table-sm table-bordered table-hover align-middle">
+            <thead class="table-light text-center">
+                <tr>
+                    <th>Mã Đơn</th>
+                    <th>Tài Nguyên Mượn</th>
+                    <th>SL</th>
+                    <th>Thời Gian</th>
+                    <th>Trạng Thái</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="req : ${studentHistory}">
+                    <td class="text-center fw-bold" th:text="${req.id}"></td>
+                    <td>
+                        <div th:if="${req.labRoom != null}" th:text="'🏫 ' + ${req.labRoom.roomName}"></div>
+                        <div th:if="${req.equipment != null}" th:text="'🔌 ' + ${req.equipment.name}"></div>
+                    </td>
+                    <td class="text-center" th:text="${req.quantity}"></td>
+                    <td>
+                        <small th:text="'Từ: ' + ${#temporals.format(req.startTime, 'dd/MM/yyyy HH:mm')}"></small><br>
+                        <small th:text="'Đến: ' + ${#temporals.format(req.endTime, 'dd/MM/yyyy HH:mm')}"></small>
+                    </td>
+                    <td class="text-center">
+                        <span th:if="${req.status == 'PENDING'}" class="badge bg-warning text-dark">Chờ</span>
+                        <span th:if="${req.status == 'APPROVED'}" class="badge bg-success">Đã Duyệt</span>
+                        <span th:if="${req.status == 'REJECTED'}" class="badge bg-danger">Từ Chối</span>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(studentHistory)}">
+                    <td colspan="5" class="text-center text-muted py-3">
+                        <i class="fa-solid fa-box-open mb-2"></i><br>
+                        Sinh viên này chưa có lịch sử mượn trả nào!
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </th:block>
+
+</body>
+</html>
