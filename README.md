@@ -36,17 +36,17 @@ Dự án **IT Lab Equipment Management** được xây dựng nhằm số hóa q
 | :---: | :---: |
 | <img src="https://github.com/user-attachments/assets/fce41dd4-a5a2-4256-a128-75df41ad8df6" width="400"> | <img src="https://github.com/user-attachments/assets/de04cb4a-e9a5-4aae-92b4-1549d1e05ebd" width="400"> |
 
-| Màn Hình Giao Diện Form mượn | Lịch Sử Mượn (Fetch API) |
+| Giao Diện Trang Sinh Viên | Form mượn |
 | :---: | :---: |
-| <img src="https://github.com/user-attachments/assets/72f42651-3ad6-49de-8d99-8ca48250de33" width="400"> | <img src="https://via.placeholder.com/600x400.png?text=Hinh+Anh+History+Modal" width="400"> |
+| <img src="https://github.com/user-attachments/assets/72f42651-3ad6-49de-8d99-8ca48250de33" width="400"> | <img src="https://github.com/user-attachments/assets/5979c13a-311c-48ea-8b30-3a5c3f0cf8fd" width="400"> |
 
-| Tìm Kiếm Tức Thời (Real-time) | Lịch Sử Mượn (Fetch API) |
+| Quản Lý Phòng Máy | Duyệt form mượn |
 | :---: | :---: |
-| <img src="https://via.placeholder.com/600x400.png?text=Hinh+Anh+Search" width="400"> | <img src="https://via.placeholder.com/600x400.png?text=Hinh+Anh+History+Modal" width="400"> |
+| <img src="https://github.com/user-attachments/assets/e79ee2bf-b1da-4366-add0-42c819653079" width="400"> | <img src="https://github.com/user-attachments/assets/056e7743-833c-4722-be04-5bd6ec41c5d9" width="400"> |
 
-| Tìm Kiếm Tức Thời (Real-time) | Lịch Sử Mượn (Fetch API) |
+| Quản Lý Thiết Bị | Quản Lý Sinh Viên |
 | :---: | :---: |
-| <img src="https://via.placeholder.com/600x400.png?text=Hinh+Anh+Search" width="400"> | <img src="https://via.placeholder.com/600x400.png?text=Hinh+Anh+History+Modal" width="400"> |
+| <img src="https://github.com/user-attachments/assets/4aa1475c-c638-42db-9891-66438a3a574e" width="400"> | <img src="https://github.com/user-attachments/assets/c1086199-6154-491b-908c-519a611196e0" width="400"> |
 
 
 
@@ -79,6 +79,11 @@ src/main/resources/
  ├── static/            # Chứa các file CSS, JS tĩnh
  ├── templates/         # Giao diện HTML (Thymeleaf, Fragments)
  └── application.properties # Cấu hình môi trường Spring Boot
-<img width="1919" height="686" alt="Ảnh chụp màn hình 2026-06-02 110616" src="https://github.com/user-attachments/assets/72f42651-3ad6-49de-8d99-8ca48250de33" />
+<img width="1913" height="913" alt="Ảnh chụp màn hình 2026-06-02 110708" src="https://github.com/user-attachments/assets/e79ee2bf-b1da-4366-add0-42c819653079" />
 
+<img width="1917" height="911" alt="Ảnh chụp màn hình 2026-06-02 110804" src="https://github.com/user-attachments/assets/056e7743-833c-4722-be04-5bd6ec41c5d9" />
+
+<img width="1919" height="911" alt="Ảnh chụp màn hình 2026-06-02 110738" src="https://github.com/user-attachments/assets/4aa1475c-c638-42db-9891-66438a3a574e" />
+
+<img width="1912" height="910" alt="Ảnh chụp màn hình 2026-06-02 110827" src="https://github.com/user-attachments/assets/c1086199-6154-491b-908c-519a611196e0" />
 
