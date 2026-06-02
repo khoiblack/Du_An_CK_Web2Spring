@@ -30,6 +30,18 @@ Dự án **IT Lab Equipment Management** được xây dựng nhằm số hóa q
 * **Theo dõi tài nguyên rảnh:** Xem danh sách phòng máy và thiết bị khả dụng theo thời gian thực.
 * **Tạo phiếu mượn trực tuyến:** Hệ thống tự động chặn các đơn mượn vượt quá số lượng tồn kho hoặc trùng lặp thời gian sử dụng phòng máy.
 
+## 🎥 Video Demo Sản Phẩm
+
+Mời thầy và các bạn xem video demo chi tiết về luồng hoạt động của hệ thống (Sinh viên tạo đơn mượn & Admin duyệt đơn tự động trừ kho) tại đường link YouTube dưới đây:
+
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=qebByWE90ZM">
+    <img src="https://img.shields.io/badge/YouTube-Xem_Video_Demo-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="Xem Video Demo trên YouTube" title="Click để xem video demo">
+  </a>
+</p>
+
+*(Lưu ý: Click trực tiếp vào nút YouTube màu đỏ ở trên để chuyển hướng tới video)*
+
 ## 📸 Giao diện màn hình (Screenshots)
 
 | Trang Đăng Nhập | Trang Đăng Ký |
@@ -47,8 +59,6 @@ Dự án **IT Lab Equipment Management** được xây dựng nhằm số hóa q
 | Quản Lý Thiết Bị | Quản Lý Sinh Viên |
 | :---: | :---: |
 | <img src="https://github.com/user-attachments/assets/4aa1475c-c638-42db-9891-66438a3a574e" width="400"> | <img src="https://github.com/user-attachments/assets/c1086199-6154-491b-908c-519a611196e0" width="400"> |
-
-
 
 ## 🛠️ Công nghệ sử dụng
 
@@ -79,5 +89,3 @@ src/main/resources/
  ├── static/            # Chứa các file CSS, JS tĩnh
  ├── templates/         # Giao diện HTML (Thymeleaf, Fragments)
  └── application.properties # Cấu hình môi trường Spring Boot
-
-
