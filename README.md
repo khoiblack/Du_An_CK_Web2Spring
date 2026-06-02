@@ -58,6 +58,7 @@ Dự án **IT Lab Equipment Management** được xây dựng nhằm số hóa q
 * MySQL
 * Eclipse IDE / Maven
 
+## 📂 Cấu trúc thư mục (Folder Structure)
 src/main/java/ntu/khoi/
  ├── config/            # Cấu hình hệ thống (Interceptors, Security)
  ├── controller/        # Xử lý các HTTP Request (Admin, Student, Login)
