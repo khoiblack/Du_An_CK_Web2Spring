@@ -79,11 +79,5 @@ src/main/resources/
  ├── static/            # Chứa các file CSS, JS tĩnh
  ├── templates/         # Giao diện HTML (Thymeleaf, Fragments)
  └── application.properties # Cấu hình môi trường Spring Boot
-<img width="1913" height="913" alt="Ảnh chụp màn hình 2026-06-02 110708" src="https://github.com/user-attachments/assets/e79ee2bf-b1da-4366-add0-42c819653079" />
 
-<img width="1917" height="911" alt="Ảnh chụp màn hình 2026-06-02 110804" src="https://github.com/user-attachments/assets/056e7743-833c-4722-be04-5bd6ec41c5d9" />
-
-<img width="1919" height="911" alt="Ảnh chụp màn hình 2026-06-02 110738" src="https://github.com/user-attachments/assets/4aa1475c-c638-42db-9891-66438a3a574e" />
-
-<img width="1912" height="910" alt="Ảnh chụp màn hình 2026-06-02 110827" src="https://github.com/user-attachments/assets/c1086199-6154-491b-908c-519a611196e0" />
 
