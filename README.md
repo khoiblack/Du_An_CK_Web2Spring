@@ -58,10 +58,14 @@ Dự án **IT Lab Equipment Management** được xây dựng nhằm số hóa q
 * MySQL
 * Eclipse IDE / Maven
 
-## 🚀 Hướng dẫn cài đặt (Local Setup)
-
-Để chạy dự án trên máy tính cá nhân, vui lòng làm theo các bước sau:
-
-**Bước 1: Clone dự án về máy**
-```bash
-git clone [https://github.com/UsernameCuaBan/LabEquipmentManagement.git](https://github.com/UsernameCuaBan/LabEquipmentManagement.git)
+src/main/java/ntu/khoi/
+ ├── config/            # Cấu hình hệ thống (Interceptors, Security)
+ ├── controller/        # Xử lý các HTTP Request (Admin, Student, Login)
+ ├── entity/            # Các lớp ánh xạ Cơ sở dữ liệu (User, Equipment, Room...)
+ ├── repository/        # Giao tiếp với Database (Spring Data JPA)
+ └── service/           # Xử lý logic nghiệp vụ (Business Logic)
+ 
+src/main/resources/
+ ├── static/            # Chứa các file CSS, JS tĩnh
+ ├── templates/         # Giao diện HTML (Thymeleaf, Fragments)
+ └── application.properties # Cấu hình môi trường Spring Boot
