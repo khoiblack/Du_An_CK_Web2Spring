@@ -89,3 +89,30 @@ src/main/resources/
  ├── static/            # Chứa các file CSS, JS tĩnh
  ├── templates/         # Giao diện HTML (Thymeleaf, Fragments)
  └── application.properties # Cấu hình môi trường Spring Boot
+```
+## 🚀 Hướng dẫn cài đặt & Chạy dự án (Local Setup)
+
+Để chạy dự án trên máy tính cá nhân, vui lòng làm theo các bước sau:
+
+**Bước 1: Clone dự án về máy**
+```bash
+git clone https://github.com/khoiblack/Du_An_CK_Web2Spring.git
+```
+Bước 2: Cài đặt Cơ sở dữ liệu (MySQL)
+
+Mở XAMPP và khởi động dịch vụ MySQL.
+
+Truy cập http://localhost/phpmyadmin và tạo một Database mới có tên là: lab_management_db.
+
+Import file database_backup.sql (nằm trong thư mục database của dự án) vào cơ sở dữ liệu vừa tạo để có sẵn dữ liệu mẫu.
+
+Bước 3: Cấu hình kết nối (application.properties)
+Mở file src/main/resources/application.properties bằng Eclipse/IntelliJ và cập nhật thông tin đăng nhập MySQL của bạn (nếu có thay đổi mật khẩu):
+```bash
+spring.datasource.url=jdbc:mysql://localhost:3306/lab_management_db
+spring.datasource.username=root
+spring.datasource.password=
+```
+Bước 4: Chạy ứng dụngMở dự án bằng Eclipse IDE (hoặc IntelliJ IDEA).Nhấn chuột phải vào project $\rightarrow$ Run As $\rightarrow$ Maven build để tải các thư viện cần thiết.Chạy class chính chứa hàm main @SpringBootApplication.Mở trình duyệt và truy cập hệ thống tại: http://localhost:8084/login (Thay đổi cổng port nếu cần thiết).
+
+
