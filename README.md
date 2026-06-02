@@ -32,15 +32,23 @@ Dự án **IT Lab Equipment Management** được xây dựng nhằm số hóa q
 
 ## 📸 Giao diện màn hình (Screenshots)
 
-| Trang Đăng Nhập & Đăng Ký | Dashboard Quản Trị (Admin) |
+| Trang Đăng Nhập | Trang Đăng Ký |
 | :---: | :---: |
-| <img src="https://via.placeholder.com/600x400.png?text=Hinh+Anh+Login" width="400"> | <img src="https://via.placeholder.com/600x400.png?text=Hinh+Anh+Admin+Dashboard" width="400"> |
+| <img src="https://github.com/user-attachments/assets/fce41dd4-a5a2-4256-a128-75df41ad8df6" width="400"> | <img src="https://github.com/user-attachments/assets/de04cb4a-e9a5-4aae-92b4-1549d1e05ebd" width="400"> |
+
+| Màn Hình Giao Diện Form mượn | Lịch Sử Mượn (Fetch API) |
+| :---: | :---: |
+| <img src="https://github.com/user-attachments/assets/72f42651-3ad6-49de-8d99-8ca48250de33" width="400"> | <img src="https://via.placeholder.com/600x400.png?text=Hinh+Anh+History+Modal" width="400"> |
 
 | Tìm Kiếm Tức Thời (Real-time) | Lịch Sử Mượn (Fetch API) |
 | :---: | :---: |
 | <img src="https://via.placeholder.com/600x400.png?text=Hinh+Anh+Search" width="400"> | <img src="https://via.placeholder.com/600x400.png?text=Hinh+Anh+History+Modal" width="400"> |
 
-*(Lưu ý: Thay thế các link `https://via.placeholder.com/...` bằng link ảnh thật của bạn)*
+| Tìm Kiếm Tức Thời (Real-time) | Lịch Sử Mượn (Fetch API) |
+| :---: | :---: |
+| <img src="https://via.placeholder.com/600x400.png?text=Hinh+Anh+Search" width="400"> | <img src="https://via.placeholder.com/600x400.png?text=Hinh+Anh+History+Modal" width="400"> |
+
+
 
 ## 🛠️ Công nghệ sử dụng
 
@@ -71,3 +79,6 @@ src/main/resources/
  ├── static/            # Chứa các file CSS, JS tĩnh
  ├── templates/         # Giao diện HTML (Thymeleaf, Fragments)
  └── application.properties # Cấu hình môi trường Spring Boot
+<img width="1919" height="686" alt="Ảnh chụp màn hình 2026-06-02 110616" src="https://github.com/user-attachments/assets/72f42651-3ad6-49de-8d99-8ca48250de33" />
+
+
