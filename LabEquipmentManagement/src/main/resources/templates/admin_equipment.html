@@ -5,9 +5,15 @@
     <th:block th:fragment="tab_content">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h3 class="text-dark">Quản Lý Trang Thiết Bị Khoa</h3>
-            <button class="btn btn-primary shadow-sm" data-bs-toggle="modal" data-bs-target="#equipmentModal" onclick="prepareAddForm()">
-                <i class="fa-solid fa-plus me-1"></i> Thêm Thiết Bị Mới
-            </button>
+            <div class="d-flex gap-3 align-items-center">
+                <div class="input-group shadow-sm" style="width: 250px;">
+                    <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
+                    <input type="text" id="searchEq" class="form-control border-start-0 ps-0" placeholder="Tìm thiết bị..." onkeyup="searchEquipments()">
+                </div>
+                <button class="btn btn-primary shadow-sm text-nowrap" data-bs-toggle="modal" data-bs-target="#equipmentModal" onclick="prepareAddForm()">
+                    <i class="fa-solid fa-plus me-1"></i> Thêm Thiết Bị
+                </button>
+            </div>
         </div>
 
         <div class="card shadow-sm border-0">
@@ -23,7 +29,7 @@
                             <th class="text-center pe-4">Hành Động</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tableEq">
                         <tr th:each="item : ${listEquipment}">
                             <td th:text="${item.id}" class="ps-4"></td>
                             <td th:text="${item.name}" class="fw-bold text-secondary"></td>
@@ -32,19 +38,12 @@
                             <td th:text="${item.availableQuantity}" class="text-success fw-bold"></td>
                             <td class="text-center pe-4">
                                 <button class="btn btn-warning btn-sm me-2" 
-                                        data-bs-toggle="modal" 
-                                        data-bs-target="#equipmentModal"
-                                        th:data-id="${item.id}" 
-                                        th:data-name="${item.name}"
-                                        th:data-category="${item.category}" 
-                                        th:data-total="${item.totalQuantity}"
+                                        data-bs-toggle="modal" data-bs-target="#equipmentModal"
+                                        th:data-id="${item.id}" th:data-name="${item.name}"
+                                        th:data-category="${item.category}" th:data-total="${item.totalQuantity}"
                                         th:data-available="${item.availableQuantity}"
-                                        onclick="prepareEditForm(this)">
-                                    <i class="fa-solid fa-pen-to-square"></i> Sửa
-                                </button>
-                                <a th:href="@{/admin/equipment/delete/{id}(id=${item.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Xóa thiết bị này?')">
-                                    <i class="fa-solid fa-trash"></i> Xóa
-                                </a>
+                                        onclick="prepareEditForm(this)"><i class="fa-solid fa-pen-to-square"></i> Sửa</button>
+                                <a th:href="@{/admin/equipment/delete/{id}(id=${item.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Xóa thiết bị này?')"><i class="fa-solid fa-trash"></i> Xóa</a>
                             </td>
                         </tr>
                         <tr th:if="${#lists.isEmpty(listEquipment)}">
@@ -68,7 +67,6 @@
                         <div class="modal-body">
                             <input type="hidden" id="formId" name="id">
                             <input type="hidden" id="formAvailable" name="availableQuantity">
-                            
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Tên thiết bị</label>
                                 <input type="text" id="formName" name="name" class="form-control" required>
@@ -96,6 +94,16 @@
         </div>
 
         <script>
+            
+            function searchEquipments() {
+                let input = document.getElementById("searchEq").value.toLowerCase();
+                let rows = document.getElementById("tableEq").getElementsByTagName("tr");
+                for (let row of rows) {
+                    if(row.children.length === 1) continue; 
+                    row.style.display = row.innerText.toLowerCase().includes(input) ? "" : "none";
+                }
+            }
+
             function prepareAddForm() {
                 document.getElementById('modalEqTitle').innerText = "Thêm Thiết Bị Mới";
                 document.getElementById('formId').value = "";
